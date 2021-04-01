@@ -1,0 +1,29 @@
+{
+  "name": "bs-flexlayout-react",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w -ws _",
+    "clean": "bsb -clean-world",
+    "refmt": "find ./src ./examples -type f -name \"*.re\" | xargs bsrefmt --in-place"
+  },
+  "description": "Bucklescript bindings for flexlayout-react",
+  "author": "JP3BGY",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "reactjs",
+    "flexlayout-react",
+    "react-component",
+    "bucklescript",
+    "binding"
+  ],
+  "devDependencies": {
+    "bs-platform": "^9.0.2",
+    "reason-react": ">=0.7.0"
+  },
+  "peerDependencies": {
+    "flexlayout-react": "^0.5.5",
+    "reason-react": ">=0.7.0"
+  }
+}

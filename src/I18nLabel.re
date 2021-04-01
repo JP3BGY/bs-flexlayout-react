@@ -1,0 +1,1 @@
+type _I18nLabel;
