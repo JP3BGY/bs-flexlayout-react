@@ -40,50 +40,50 @@ module LayoutJs ={
   [@bs.module "flexlayout-react"][@react.component]
   external make: (
     ~model: _Model,
-    ~factory: _TabNode => React.element,
+    ~factory: (._TabNode) => React.element,
     ~font: font=?,
     ~fontFamily: string=?,
-    ~iconFactory: _TabNode => option(React.element)=?,
-    ~titleFactory: _TabNode => option(React.element)=?,
+    ~iconFactory: (._TabNode) => option(React.element)=?,
+    ~titleFactory: (._TabNode) => option(React.element)=?,
     ~closeIcon: React.element=?,
     ~icons: _IIcons=?,
-    ~onAction: _Action=>option(_Action)=?,
-    ~onRenderTab: (
+    ~onAction: (._Action)=>option(_Action)=?,
+    ~onRenderTab: (.
       _TabNode,
       tabRenderValues  
     )=>unit=?,
-    ~onRenderTabSet: (
+    ~onRenderTabSet: (.
       TsnorBdn.t,
       tabSetRenderValues  
     )=>unit=?,
-    ~onModelChange: (_Model)=>unit=?,
-    ~classNameMapper: string=>string=?,
-    ~i18nMapper:(_I18nLabel,option(string))=>option(string)=?,
+    ~onModelChange: (._Model)=>unit=?,
+    ~classNameMapper: (.string)=>string=?,
+    ~i18nMapper:(._I18nLabel,option(string))=>option(string)=?,
     ~supportsPopout: option(bool)=?,
     ~popoutURL: option(string)=?
   )=>React.element = "Layout";
 };
 [@react.component]
 let make = (
-  ~model:_Model,
-  ~factory:_TabNode => React.element,
-  ~font:option(font)=?,
-  ~fontFamily:option(string)=?,
-  ~iconFactory:option(_TabNode => option(React.element))=?,
-  ~titleFactory:option(_TabNode => option(React.element))=?,
-  ~closeIcon:option(React.element)=?,
-  ~icons:option(_IIcons)=?,
-  ~onAction:option(_Action=>option(_Action))=?,
+  ~model,
+  ~factory,
+  ~font=?,
+  ~fontFamily=?,
+  ~iconFactory=?,
+  ~titleFactory=?,
+  ~closeIcon=?,
+  ~icons=?,
+  ~onAction=?,
   ~onRenderTabSet:option(([`tsn(_TabSetNode)|`bdn(_BorderNode)],tabSetRenderValues)=>unit)=?,
-  ~onModelChange:option(_Model=>unit)=?,
-  ~classNameMapper:option(string=>string)=?,
-  ~i18nMapper:option((_I18nLabel,option(string))=>option(string))=?,
-  ~supportsPopout:option(bool)=?,
-  ~popoutURL:option(string)=?
+  ~onModelChange=?,
+  ~classNameMapper=?,
+  ~i18nMapper=?,
+  ~supportsPopout=?,
+  ~popoutURL=?
 )=>{
   let f = switch onRenderTabSet {
   | None => None;
-  | Some(g) => Some((rawJs,y)=>{
+  | Some(g) => Some((. rawJs,y)=>{
     let cases=TsnorBdn.classify(rawJs);
     let x=switch cases {
     | TsnorBdn.S(x) => `tsn(x);
