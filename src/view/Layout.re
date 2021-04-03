@@ -90,13 +90,13 @@ let make = (
   let rawOnRenderTabSet = switch onRenderTabSet {
   | None => None;
   | Some(g) => Some((. rawJs,y)=>{
-    let cases=TsnorBdn.classify(rawJs);
-    let x=switch cases {
-    | TsnorBdn.S(x) => `tsn(x);
-    | TsnorBdn.T(x) => `bdn(x);
-    };
-    g(x,y);
-  });
+      let cases=TsnorBdn.classify(rawJs);
+      let x=switch cases {
+      | TsnorBdn.S(x) => `tsn(x);
+      | TsnorBdn.T(x) => `bdn(x);
+      };
+      g(x,y);
+    });
   };
   let rawOnModelChange = onModelChange >>| uncurry1;
   let rawClassNameMapper = classNameMapper >>| uncurry1;
