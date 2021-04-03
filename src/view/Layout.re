@@ -5,6 +5,8 @@ open TabSetNode;
 open BorderNode;
 open Action;
 open Union;
+open Uncurry;
+open Fmap;
 
 type _IIcons={
   close:option(React.element),
@@ -74,14 +76,18 @@ let make = (
   ~closeIcon=?,
   ~icons=?,
   ~onAction=?,
-  ~onRenderTabSet:option(([`tsn(_TabSetNode)|`bdn(_BorderNode)],tabSetRenderValues)=>unit)=?,
+  ~onRenderTabSet=?,
   ~onModelChange=?,
   ~classNameMapper=?,
   ~i18nMapper=?,
   ~supportsPopout=?,
   ~popoutURL=?
 )=>{
-  let f = switch onRenderTabSet {
+  let rawFactory = uncurry1(factory);
+  let rawIconFactory = iconFactory >>| uncurry1;
+  let rawTitleFactory = titleFactory >>| uncurry1;
+  let rawOnAction = onAction >>| uncurry1;
+  let rawOnRenderTabSet = switch onRenderTabSet {
   | None => None;
   | Some(g) => Some((. rawJs,y)=>{
     let cases=TsnorBdn.classify(rawJs);
@@ -92,20 +98,23 @@ let make = (
     g(x,y);
   });
   };
+  let rawOnModelChange = onModelChange >>| uncurry1;
+  let rawClassNameMapper = classNameMapper >>| uncurry1;
+  let rawI18nMapper = i18nMapper >>| uncurry2;
   <LayoutJs 
     model={model}
-    factory={factory} 
+    factory={rawFactory} 
     font=?{font} 
     fontFamily=?{fontFamily}
-    iconFactory=?{iconFactory}
-    titleFactory=?{titleFactory}
+    iconFactory=?{rawIconFactory}
+    titleFactory=?{rawTitleFactory}
     closeIcon=?{closeIcon}
     icons=?{icons}
-    onAction=?{onAction}
-    onRenderTabSet=?{f}
-    onModelChange=?{onModelChange}
-    classNameMapper=?{classNameMapper}
-    i18nMapper=?{i18nMapper}
+    onAction=?{rawOnAction}
+    onRenderTabSet=?{rawOnRenderTabSet}
+    onModelChange=?{rawOnModelChange}
+    classNameMapper=?{rawClassNameMapper}
+    i18nMapper=?{rawI18nMapper}
     supportsPopout=?{supportsPopout}
     popoutURL=?{popoutURL}
   />;
