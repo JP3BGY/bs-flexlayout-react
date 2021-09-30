@@ -1,0 +1,16 @@
+{
+  "name": "minimum",
+  "version": "0.1.0",
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "package-specs": [{
+    "module": "commonjs"
+  }],
+  "reason": {"react-jsx": 3},
+  "bs-dependencies": [
+    "@rescript/react",
+    "bs-flexlayout-react"
+  ]
+}
